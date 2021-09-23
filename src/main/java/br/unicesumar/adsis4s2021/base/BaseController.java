@@ -39,7 +39,7 @@ public class BaseController<ENTITY extends BaseEntity, REPO extends JpaRepositor
 	public ResponseEntity<String> post(@RequestBody ENTITY novo) {
 		if (novo.getId() != null && repo.findById(novo.getId()).isPresent()) {
 			//throw new RuntimeException("Seu registro já existe, faça um put ao invés de post!");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Seu registro já existe, faça um put ao invés de post!");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Seu registro já existe, faça um put ao invés de post!");
 		}
 		novo = repo.save(novo);
 		return ResponseEntity.status(HttpStatus.CREATED).body(novo.getId());

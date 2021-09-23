@@ -3,6 +3,8 @@ package br.unicesumar.adsis4s2021.meu.lucas.duranteAsAulas.produto;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,24 +43,31 @@ public class MeuProdutoController {
 	}
 	
 	@PostMapping
-	public String postMeuProduto(@RequestBody MeuProduto novo) {
+	//.................................201 == CREATED
+	//@ResponseStatus(value = HttpStatus.CREATED)
+	public ResponseEntity<String> postMeuProduto(@RequestBody MeuProduto novo) {
 		if(repo.findById(novo.getId()).isPresent()) {
-			throw new RuntimeException("Seu produto já existe, faça um PUT se quiser altera-lo");
+			//......................................409 == CONFLICT
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Seu produto já existe, faça um PUT se quiser altera-lo");
 		}
 		novo = repo.save(novo);
-		return novo.getId();
+		//......................................201 == CREATED
+		return ResponseEntity.status(HttpStatus.CREATED).body(novo.getId());
 	}
 	
 	@PutMapping("/{id}")
-	public String putMeuProduto(@RequestBody MeuProduto modificado, @PathVariable("id") String id) {
+	public ResponseEntity<String> putMeuProduto(@RequestBody MeuProduto modificado, @PathVariable("id") String id) {
 		if(!modificado.getId().equals(id)) {
-			throw new RuntimeException("Para atualizar um produto os IDs do request devem ser iguais");
+			//......................................409 == CONFLICT
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Para atualizar um produto os IDs do request devem ser iguais");
 		}
 		if(!repo.findById(id).isPresent()) {
-			throw new RuntimeException("Seu produto não existe, faça um POST ao invés de PUT");
+			//......................................404 == NOT_FOUND
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Seu produto não existe, faça um POST ao invés de PUT");
 		}
 		modificado = repo.save(modificado);
-		return modificado.getId();
+		//......................................200 == OK
+		return ResponseEntity.status(HttpStatus.OK).body(modificado.getId());
 	}
 	
 }

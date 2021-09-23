@@ -3,6 +3,8 @@ package br.unicesumar.adsis4s2021.meu.lucas.duranteAsAulas.pet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,24 +36,24 @@ public class MeuPetController {
 	}
 	
 	@PostMapping
-	public String post(@RequestBody MeuPet novo) {
+	public ResponseEntity<String> post(@RequestBody MeuPet novo) {
 		if (repo.findById(novo.getId()).isPresent()) {
-			throw new RuntimeException("Seu pet já existe, faça um put ao invés de post!");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Seu pet já existe, faça um put ao invés de post!");
 		}
 		novo = repo.save(novo);
-		return novo.getId();
+		return ResponseEntity.status(HttpStatus.CREATED).body(novo.getId());
 	}
 	
 	@PutMapping("/{id}")
-	public String putPeloId(@RequestBody MeuPet modificado, @PathVariable("id") String id) {
+	public ResponseEntity<String> putPeloId(@RequestBody MeuPet modificado, @PathVariable("id") String id) {
 		if (!modificado.getId().equals(id)) {
-			throw new RuntimeException("Para atualizar um pet, os IDs do request devem ser iguais!");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Para atualizar um pet, os IDs do request devem ser iguais!");
 		}
 		if (!repo.findById(id).isPresent()) {
-			throw new RuntimeException("Seu pet não existe, faça um post ao invés de put!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Seu pet não existe, faça um post ao invés de put!");
 		}
 		modificado = repo.save(modificado);
-		return modificado.getId();
+		return ResponseEntity.status(HttpStatus.OK).body(modificado.getId());
 	}
 	
 }
