@@ -1,4 +1,4 @@
-package br.unicesumar.adsis4s2021.meu.lucas.aParte.musica;
+package br.unicesumar.adsis4s2021.meu.lucas.aParte.playlistTransiente;
 
 public class Playlist {
 	private int ordemDeReproducao;

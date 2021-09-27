@@ -14,7 +14,7 @@ public class MeuProduto {
 	private String nome;
 	private double preco;
 	
-	// Uma categoria está em muitos produtos
+	// Muitos produtos tem uma categoria
 	@ManyToOne
 	@JoinColumn(name="minha_categoria_id")
 	private MinhaCategoria categoria;

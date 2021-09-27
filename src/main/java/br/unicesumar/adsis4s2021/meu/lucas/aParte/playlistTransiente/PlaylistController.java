@@ -1,4 +1,4 @@
-package br.unicesumar.adsis4s2021.meu.lucas.aParte.musica;
+package br.unicesumar.adsis4s2021.meu.lucas.aParte.playlistTransiente;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("playlist")
+@RequestMapping("playlist-transiente")
 public class PlaylistController {
 	private Set<Playlist> playlist = new HashSet<>();
 	

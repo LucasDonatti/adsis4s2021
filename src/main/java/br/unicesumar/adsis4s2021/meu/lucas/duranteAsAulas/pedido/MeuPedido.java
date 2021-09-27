@@ -19,6 +19,7 @@ public class MeuPedido {
 	private Long numero;
 	private Date emitidoEm;
 	
+	// 1 pedido é composto por N itens ==> Composição
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="meu_pedido_id")
 	private List<MeuItemPedido> itens;
