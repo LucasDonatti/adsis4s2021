@@ -8,5 +8,5 @@ import br.unicesumar.adsis4s2021.meu.lucas.aParte.playlist.base.PlaylistBaseCont
 @RestController
 @RequestMapping("albuns")
 public class AlbumController extends PlaylistBaseController<Album, AlbumRepository> {
-
+	
 }

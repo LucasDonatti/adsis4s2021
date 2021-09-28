@@ -1,13 +1,15 @@
 package br.unicesumar.adsis4s2021.meu.lucas.aParte.playlist.album;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import br.unicesumar.adsis4s2021.meu.lucas.aParte.playlist.artista.Artista;
 import br.unicesumar.adsis4s2021.meu.lucas.aParte.playlist.base.PlaylistBaseEntity;
+import br.unicesumar.adsis4s2021.meu.lucas.aParte.playlist.musica.Musica;
 
 @Entity
 public class Album extends PlaylistBaseEntity{
@@ -16,9 +18,9 @@ public class Album extends PlaylistBaseEntity{
 	private String duracao;
 	private Date lancamento;
 	
-	@ManyToOne // add cascade para deletar os albuns quando o artista for deletado
-	@JoinColumn(name = "artista_id")
-	private Artista artista;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "album_id")
+	private List<Musica> musicas;
 	
 	public Album() {
 	}
@@ -35,7 +37,7 @@ public class Album extends PlaylistBaseEntity{
 	public Date getLancamento() {
 		return lancamento;
 	}
-	public Artista getArtista() {
-		return artista;
+	public List<Musica> getMusicas() {
+		return musicas;
 	}
 }
