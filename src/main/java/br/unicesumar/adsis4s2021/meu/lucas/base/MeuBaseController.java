@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,12 +28,14 @@ public class MeuBaseController<ENTITY extends MeuBaseEntity, REPO extends JpaRep
 	}
 	
 	@PostMapping
-	public String post(@RequestBody ENTITY novo) {
-		if (repo.findById(novo.getId()).isPresent()) {
-			throw new RuntimeException("Seu registro já existe, faça um put ao invés de post!");
+	//@ResponseStatus(value = HttpStatus.CREATED)
+	public ResponseEntity<String> post(@RequestBody ENTITY novo) {
+		if (novo.getId() != null && repo.findById(novo.getId()).isPresent()) {
+			//throw new RuntimeException("Seu registro já existe, faça um put ao invés de post!");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Seu registro já existe, faça um put ao invés de post!");
 		}
 		novo = repo.save(novo);
-		return novo.getId();
+		return ResponseEntity.status(HttpStatus.CREATED).body(novo.getId());
 	}
 	
 //	@PostMapping
