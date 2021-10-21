@@ -23,8 +23,13 @@ public class MeuPedidoController {
 	private MeuPedidoService service;
 	
 	@GetMapping
-	public List<MeuPedidoDTO> getAll() {
+	public List<MeuPedido> getAll() {
 		return service.getAll();
+	}
+	
+	@GetMapping("/dto")
+	public List<MeuPedidoDTO> getAllDTO() {
+		return service.getAllDTO();
 	}
 	
 	@PostMapping

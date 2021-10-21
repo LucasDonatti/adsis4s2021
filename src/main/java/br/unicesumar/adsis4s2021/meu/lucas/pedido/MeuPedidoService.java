@@ -24,7 +24,12 @@ public class MeuPedidoService {
 	private MinhaReservaDeEstoqueService minhaReservaDeEstoqueSevice;
 
 	// GET ALL
-	public List<MeuPedidoDTO> getAll() {
+	public List<MeuPedido> getAll() {
+		return repo.findAll();
+	}
+	
+	// GET ALL DTO
+	public List<MeuPedidoDTO> getAllDTO() {
 		List<MeuPedidoDTO> pedidosDTO  = repo.encontrarPedidoComoDTO();
 		for (MeuPedidoDTO pedidoDTO : pedidosDTO) {
 			pedidoDTO.setItens(repo.encontrarItemPedidoComoDTO(pedidoDTO.getId()));
