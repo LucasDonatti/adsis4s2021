@@ -1,4 +1,4 @@
-package br.unicesumar.adsis4s2021.meu.lucas.base;
+package br.unicesumar.adsis4s2021.meu.lucas.base.exception;
 
 public class MeuExceptionDTO {
 	private String exceptionType;

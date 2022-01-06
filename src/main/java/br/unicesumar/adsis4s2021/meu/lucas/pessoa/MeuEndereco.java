@@ -8,9 +8,11 @@ import br.unicesumar.adsis4s2021.meu.lucas.cidade.MinhaCidade;
 
 @Entity
 public class MeuEndereco extends MeuBaseEntity {
+	
 	private String logradouro;
 	private String numero;
 	private String bairro;
+	
 	@ManyToOne
 	private MinhaCidade cidade;
 	

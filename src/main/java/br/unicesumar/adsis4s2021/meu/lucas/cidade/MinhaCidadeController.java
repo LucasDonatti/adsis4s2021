@@ -7,6 +7,6 @@ import br.unicesumar.adsis4s2021.meu.lucas.base.MeuBaseController;
 
 @RestController
 @RequestMapping("/minhas-cidades")
-public class MinhaCidadeController extends MeuBaseController<MinhaCidade, MinhaCidadeRepository> {
+public class MinhaCidadeController extends MeuBaseController<MinhaCidade, MinhaCidadeRepository, MinhaCidadeService> {
 
 }

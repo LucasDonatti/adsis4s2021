@@ -7,6 +7,6 @@ import br.unicesumar.adsis4s2021.meu.lucas.base.MeuBaseController;
 
 @RestController
 @RequestMapping("/minhas-pessoas")
-public class MinhaPessoaController extends MeuBaseController<MinhaPessoa, MinhaPessoaRepository>{
+public class MinhaPessoaController extends MeuBaseController<MinhaPessoa, MinhaPessoaRepository, MinhaPessoaService>{
 
 }

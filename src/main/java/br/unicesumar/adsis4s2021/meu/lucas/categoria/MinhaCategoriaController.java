@@ -7,6 +7,6 @@ import br.unicesumar.adsis4s2021.meu.lucas.base.MeuBaseController;
 
 @RestController
 @RequestMapping("/minhas-categorias")
-public class MinhaCategoriaController extends MeuBaseController<MinhaCategoria, MinhaCategoriaRepository> {
+public class MinhaCategoriaController extends MeuBaseController<MinhaCategoria, MinhaCategoriaRepository, MinhaCategoriaService> {
 
 }

@@ -12,6 +12,7 @@ import br.unicesumar.adsis4s2021.meu.lucas.base.MeuBaseEntity;
 
 @Entity
 public class MinhaPessoa extends MeuBaseEntity {
+	
 	private String nome;
 	
 	@OneToMany(cascade=CascadeType.ALL)

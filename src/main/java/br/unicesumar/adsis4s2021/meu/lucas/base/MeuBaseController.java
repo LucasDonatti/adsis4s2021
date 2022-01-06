@@ -13,51 +13,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public class MeuBaseController<ENTITY extends MeuBaseEntity, REPO extends JpaRepository<ENTITY, String>> {
-	@Autowired
-	private REPO repo;
+public class MeuBaseController<ENTITY extends MeuBaseEntity, 
+							   REPOSITORY extends JpaRepository<ENTITY, String>, 
+							   SERVICE extends MeuBaseService<ENTITY, REPOSITORY>> {
 	
-	@GetMapping("/{id}")
-	public ENTITY get(@PathVariable("id") String id) {
-		return repo.findById(id).get();
-	}
+	@Autowired
+	private SERVICE service;
 	
 	@GetMapping
 	public List<ENTITY> getAll() {
-		return repo.findAll();
+		return service.obterTodos();
+	}
+	
+	@GetMapping("/{id}")
+	public ENTITY get(@PathVariable("id") String id) {
+		return service.obterPeloId(id);
 	}
 	
 	@PostMapping
-	//@ResponseStatus(value = HttpStatus.CREATED)
-	public ResponseEntity<String> post(@RequestBody ENTITY novo) {
-		if (novo.getId() != null && repo.findById(novo.getId()).isPresent()) {
-			//throw new RuntimeException("Seu registro já existe, faça um put ao invés de post!");
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Seu registro já existe, faça um put ao invés de post!");
-		}
-		novo = repo.save(novo);
-		return ResponseEntity.status(HttpStatus.CREATED).body(novo.getId());
+	public String post(@RequestBody ENTITY novo) {
+		return service.criar(novo);
 	}
 	
-//	@PostMapping
-//	public List<ENTITY> postAll(@RequestBody List<ENTITY> novos) {
-//		return repo.saveAll(novos);
-//	}
-	
 	@PutMapping("/{id}")
-	public String put(@RequestBody ENTITY modificado, @PathVariable("id") String id) {
-		if (!modificado.getId().equals(id)) {
+	public void put(@RequestBody ENTITY modificado, @PathVariable("id") String id) {
+		if (!modificado.getId().equals(id)) 
 			throw new RuntimeException("Para atualizar um registro, os IDs do request devem ser iguais!");
-		}
-		if (!repo.findById(id).isPresent()) {
-			throw new RuntimeException("Seu registro não existe, faça um post ao invés de put!");
-		}
-		modificado = repo.save(modificado);
-		return modificado.getId();
+		service.atualizar(modificado);
 	}	
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") String id) {
-		repo.deleteById(id);
+		service.excluir(id);
 	}
 
 }
