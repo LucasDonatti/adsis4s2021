@@ -13,15 +13,18 @@ import br.unicesumar.adsis4s2021.meu.lucas.produto.MeuProduto;
 
 @Entity
 public class MinhaReservaDeEstoque extends MeuBaseEntity {
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private MinhaPessoa cliente;
 	private Date efetuadaEm;
+	
 	@ManyToOne
 	private MeuProduto produto;
 	private BigDecimal quantidade;
-
 	
+	public MinhaReservaDeEstoque() {
+	}
 	
 	public MinhaReservaDeEstoque(MinhaPessoa cliente, Date efetuadaEm, MeuProduto produto, BigDecimal quantidade) {
 		super();
@@ -31,36 +34,25 @@ public class MinhaReservaDeEstoque extends MeuBaseEntity {
 		this.quantidade = quantidade;
 	}
 
-
-	public MinhaReservaDeEstoque() {
-		super();
-	}
-
-
 	public MinhaPessoa getCliente() {
 		return cliente;
 	}
-
 
 	public void setCliente(MinhaPessoa cliente) {
 		this.cliente = cliente;
 	}
 
-
 	public Date getEfetuadaEm() {
 		return efetuadaEm;
 	}
-
 
 	public void setEfetuadaEm(Date efetuadaEm) {
 		this.efetuadaEm = efetuadaEm;
 	}
 
-
 	public MeuProduto getProduto() {
 		return produto;
 	}
-
 
 	public void setProduto(MeuProduto produto) {
 		this.produto = produto;
@@ -73,4 +65,5 @@ public class MinhaReservaDeEstoque extends MeuBaseEntity {
 	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
 	}
+	
 }

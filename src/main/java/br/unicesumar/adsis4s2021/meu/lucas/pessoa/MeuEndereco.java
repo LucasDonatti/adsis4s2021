@@ -16,10 +16,6 @@ public class MeuEndereco extends MeuBaseEntity {
 	@ManyToOne
 	private MinhaCidade cidade;
 	
-	public MeuEndereco() {
-		super();
-	}
-
 	public String getLogradouro() {
 		return logradouro;
 	}

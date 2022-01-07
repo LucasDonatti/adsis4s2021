@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import br.unicesumar.adsis4s2021.meu.lucas.base.exception.MeuBadRequestException;
 
 public class MeuBaseController<ENTITY extends MeuBaseEntity, 
 							   REPOSITORY extends JpaRepository<ENTITY, String>, 
@@ -38,9 +38,9 @@ public class MeuBaseController<ENTITY extends MeuBaseEntity,
 	@PutMapping("/{id}")
 	public void put(@RequestBody ENTITY modificado, @PathVariable("id") String id) {
 		if (!modificado.getId().equals(id)) 
-			throw new RuntimeException("Para atualizar um registro, os IDs do request devem ser iguais!");
+			throw new MeuBadRequestException("Para atualizar um registro, os IDs do request devem ser iguais!");
 		service.atualizar(modificado);
-	}	
+	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") String id) {

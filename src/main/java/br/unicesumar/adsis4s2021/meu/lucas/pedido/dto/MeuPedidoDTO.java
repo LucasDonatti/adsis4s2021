@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MeuPedidoDTO {
+	
 	private String id;
 	private Long numero;
 	private Date emitidoEm;
@@ -49,7 +50,7 @@ public class MeuPedidoDTO {
 	public List<MeuItemPedidoDTO> getItens() {
 		return itens;
 	}
-	
+
 	public void setItens(List<MeuItemPedidoDTO> itens) {
 		this.itens = itens;
 	}

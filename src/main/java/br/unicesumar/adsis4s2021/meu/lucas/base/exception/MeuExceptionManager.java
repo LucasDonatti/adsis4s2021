@@ -17,4 +17,10 @@ public class MeuExceptionManager {
 	public ResponseEntity<MeuExceptionDTO> handleBadRequestException(Throwable exception) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MeuExceptionDTO(exception.getClass().getName(), exception.getMessage()));
 	}
+	
+	@ExceptionHandler({MeuConflictException.class})
+	public ResponseEntity<MeuExceptionDTO> handleConflictException(Throwable exception) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(new MeuExceptionDTO(exception.getClass().getName(), exception.getMessage()));
+	}
+	
 }
