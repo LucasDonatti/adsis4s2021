@@ -22,10 +22,11 @@ public interface MeuPedidoRepository extends JpaRepository<MeuPedido, String> {
 			+ " inner join mp.cliente mc")
 	List<MeuPedidoDTO> encontrarPedidoComoDTO();
 	
-	@Query(value = "select new br.unicesumar.adsis4s2021.meu.lucas.pedido.dto.MeuItemPedidoDTO(mip.id, mip.precoUnitario, mip.percentualDeDesconto, mip.quantidade, mp.id, mp.nome) "
-			+ "       from MeuItemPedido mip "
-			+ " inner join mip.produto mp "
-			+ "      where mip.id = :pedidoId")
+	@Query(value = "select new br.unicesumar.adsis4s2021.meu.lucas.pedido.dto.MeuItemPedidoDTO(mip.id, mip.precoUnitario, mip.percentualDeDesconto, mip.quantidade, mprod.id, mprod.nome) "
+			+ "       from MeuPedido mp "
+			+ " inner join mp.itens mip "
+			+ " inner join mip.produto mprod "
+			+ "      where mp.id = :pedidoId")
 	List<MeuItemPedidoDTO> encontrarItemPedidoComoDTO(String pedidoId);
 	
 }
